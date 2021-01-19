@@ -9,13 +9,10 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "fast-xml-parser": "^3.17.6",
-    "fs": "0.0.1-security",
     "jszip": "^3.5.0",
     "react": "^17.0.0",
     "react-bootstrap": "^1.4.3",
-    "react-dom": "^17.0.0",
-    "unzip-stream": "^0.3.1",
-    "unzipper": "^0.10.11"
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",
