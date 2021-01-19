@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "bootstrap/dist/css/bootstrap.min.css": "./bootstrap/dist/css/bootstrap.min.css",
+    "fast-xml-parser": "./fast-xml-parser.js",
+    "jszip": "./jszip.js",
+    "react": "./react.js",
+    "react-bootstrap": "./react-bootstrap.js",
+    "react-dom": "./react-dom.js"
+  }
+}
