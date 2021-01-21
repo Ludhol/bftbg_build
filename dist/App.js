@@ -36,13 +36,15 @@ function App({}) {
           type: "application/json;charset=utf-8"
         });
         const objectUrl = URL.createObjectURL(blob);
+        const date = new Date();
+        const date_output = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
         return /* @__PURE__ */ React.createElement("div", {
           className: "App"
         }, /* @__PURE__ */ React.createElement("h2", null, "Unzipped Details:"), /* @__PURE__ */ React.createElement("p", null, " Number of xlsx files found: ", meta_data.length, " "), /* @__PURE__ */ React.createElement("a", {
           href: objectUrl,
           target: "_blank",
           rel: "noopener noreferrer",
-          download: "sacrificial_blood.csv"
+          download: `xlsx_meta_${date_output}.csv`
         }, /* @__PURE__ */ React.createElement("button", null, "Download data")), /* @__PURE__ */ React.createElement(DataTable, {
           data: meta_data
         }));
@@ -64,7 +66,7 @@ function App({}) {
     className: "App"
   }, /* @__PURE__ */ React.createElement("header", {
     className: "App-header"
-  }, /* @__PURE__ */ React.createElement("h1", null, "BFTBG"), /* @__PURE__ */ React.createElement("p", null, "This page extracts meta data from uploaded xlsx files in the name of the Blood God."), /* @__PURE__ */ React.createElement("p", null, "Results are compiled, presented and available for download."), /* @__PURE__ */ React.createElement("input", {
+  }, /* @__PURE__ */ React.createElement("h1", null, "BFTBG"), /* @__PURE__ */ React.createElement("p", null, "This page extracts meta data from uploaded xlsx files."), /* @__PURE__ */ React.createElement("p", null, "Results are compiled, presented and available for download."), /* @__PURE__ */ React.createElement("input", {
     type: "file",
     onChange: (e) => updateFile(e.target.files)
   }), /* @__PURE__ */ React.createElement(FileData, {
