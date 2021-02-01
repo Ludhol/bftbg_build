@@ -4,7 +4,6 @@ export default function haruspicy(data) {
   data.forEach((element) => {
     const field = parser.parse(element.core);
     if (field) {
-      console.log(field);
       const sub_field = field["cp:coreProperties"];
       output.push({
         reg_numb: element.reg_numb,

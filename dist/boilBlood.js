@@ -1,5 +1,5 @@
 import JSZip from "../web_modules/jszip.js";
-export default async function boilBlood(file, data, countErrors, setErrors) {
+export default async function boilBlood(file, data, countError, setErrors) {
   function renameFile(originalFile, newEnding, newType = originalFile.type) {
     const newName = originalFile.name.split(".")[0] + "." + newEnding;
     return new File([originalFile], newName, {
@@ -9,8 +9,10 @@ export default async function boilBlood(file, data, countErrors, setErrors) {
   }
   if (file) {
     const regNumb = file.name.substring(0, 5);
+    let root = true;
     let fileEnding = file.name.split(".")[file.name.split(".").length - 1];
-    if (fileEnding == "xlsx") {
+    if (fileEnding == "xlsx" || fileEnding === "xlsm") {
+      root = false;
       file = renameFile(file, "zip");
       fileEnding = "zip";
     }
@@ -32,16 +34,19 @@ export default async function boilBlood(file, data, countErrors, setErrors) {
               core
             });
             return data;
-          } else if (fileType === "xlsx") {
+          } else if (fileType === "xlsx" || fileType === "xlsm") {
             const fileName = zipEntry.name.split("/")[zipEntry.name.split("/").length - 1];
             const newBlob = await zipEntry.async("blob");
             const newFile = new File([newBlob], fileName);
-            data = await boilBlood(newFile, data, countErrors, setErrors);
+            data = await boilBlood(newFile, data, countError, setErrors);
+          } else if (root) {
+            const fileName = zipEntry.name.split("/")[zipEntry.name.split("/").length - 1];
+            setErrors((countError2) => [...countError2, fileName]);
           }
         }
       } catch (error) {
         console.log(error);
-        setErrors(countErrors.push(regNumb));
+        setErrors((countError2) => [...countError2, regNumb]);
       }
     }
   }

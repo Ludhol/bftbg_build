@@ -16,7 +16,6 @@ function App({}) {
         for (let index = 0; index < files2.length; index++) {
           const file = files2.item(index);
           if (file) {
-            formData.append("myFile", file, file.name);
             (async () => setData(await boilBlood(file, [], countErrors, setErrors)))();
           }
           ;
@@ -28,9 +27,7 @@ function App({}) {
     const ZippedData = () => {
       if (data) {
         const meta_data = haruspicy(data);
-        console.log("data exists", meta_data, data);
         if (meta_data[0]) {
-          console.log("meta_data[0] exists");
           const delimiter = "|";
           const headers = Object.keys(meta_data[0]).join(delimiter);
           const body = meta_data.map((j) => Object.values(j).join(delimiter)).join("\n");
@@ -44,15 +41,11 @@ function App({}) {
           const date_output = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
           return /* @__PURE__ */ React.createElement("div", {
             className: "App"
-          }, /* @__PURE__ */ React.createElement("h2", null, "Unzipped Details:"), /* @__PURE__ */ React.createElement("p", null, "Number of xlsx files found: ", meta_data.length), /* @__PURE__ */ React.createElement("p", null, "Number of faulty zip files: ", countErrors.length), () => {
-            if (countErrors.length > 0) {
-              return countErrors.forEach((regNumb) => {
-                () => {
-                  return /* @__PURE__ */ React.createElement("p", null, "Uploaded faulty file: ", regNumb);
-                };
-              });
-            }
-          }, /* @__PURE__ */ React.createElement("a", {
+          }, /* @__PURE__ */ React.createElement("h2", null, "Unzipped Details:"), /* @__PURE__ */ React.createElement("h3", null, "Number of faulty files: ", countErrors?.length), countErrors.map((regNumb, index) => {
+            return /* @__PURE__ */ React.createElement("p", {
+              key: index
+            }, regNumb);
+          }), /* @__PURE__ */ React.createElement("h3", null, "Number of xlsx files found: ", meta_data.length), /* @__PURE__ */ React.createElement("a", {
             href: objectUrl,
             target: "_blank",
             rel: "noopener noreferrer",
@@ -67,7 +60,7 @@ function App({}) {
     if (files2) {
       return /* @__PURE__ */ React.createElement("div", {
         className: "App"
-      }, /* @__PURE__ */ React.createElement("p", null, "File Name: ", files2[0].name), /* @__PURE__ */ React.createElement("button", {
+      }, /* @__PURE__ */ React.createElement("button", {
         onClick: onFileUpload
       }, "Upload files"), /* @__PURE__ */ React.createElement(ZippedData, null));
     } else {
